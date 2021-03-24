@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Drawing</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+
+    <div id="key">
+        <button onclick="myFunction()">Click me</button>
+        <div id="tiktok">
+            <div id="container"></div>
+        </div>
+    </div>
+
+    <script>
+        let isMouseHover = false;
+        window.addEventListener('load', function () {
+            size();
+            mouseOver();
+        });
+
+        function myFunction() {
+            var tj = document.getElementsByClassName("box");
+            let b = tj.length - 1;
+            for (i = 0; i < tj.length; i++) {
+                let sandra = document.getElementById(b - i);
+                sandra.classList.remove("red");
+            }
+
+        }
+
+        function mouseOver() {
+            var x = document.getElementsByClassName("box");
+            let y = x.length - 1;
+            do {
+                for (i = 0; i < x.length; i++) {
+                    let a = document.getElementById(y - i);
+                    a.addEventListener("mouseover", function (event) {
+                        isMouseHover = true
+                        a.classList.add("red");
+                    }, false);
+                }
+                y = y - 1;
+                break;
+            } while (y > 0);
+        }
+
+
+        function size() {
+            var container = document.getElementById('container');
+            container.innerHTML = "";
+            var wide = container.parentElement.clientWidth;
+            var high = container.parentElement.clientHeight;
+            let user = 0;
+            var isValid = false;
+            do {
+                user = parseInt(prompt("Size of squares? Min 16 Max 64"));
+                var x = Math.floor(wide / user);
+                var y = Math.floor(high / user);
+                isValid = user >= 16 && user <= 64;
+            } while (!isValid);
+            console.log(wide, high, " ", x, y, x * y);
+            for (i = 0; i < x * y; i++) {
+                var box = document.createElement('div');
+                box.style.width = user.toString() + "px";
+                box.style.height = user.toString() + "px";
+                console.log(user.toString() + "px")
+                console.log(box.style.width, "esse", user.toString() + "px");
+                box.className = "box";
+                box.setAttribute("id", i);
+                container.appendChild(box);
+            }
+        }
+
+
+
+        window.addEventListener('resize', function () {
+            size();
+        });
+
+
+    </script>
+
+
+</body>
+
+</html>
